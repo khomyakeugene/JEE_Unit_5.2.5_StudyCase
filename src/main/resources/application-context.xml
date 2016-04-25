@@ -9,8 +9,10 @@
     </bean>
     <bean id="taskProvider" class="com.company.tasks.NumberTaskProvider" init-method="init"/>
     <bean id="taskExecutor" class="com.company.tasks.TaskExecutor" scope="prototype"/>
-    <bean id="executorProxy" class="com.company.tasks.ExecutorProxy" scope="prototype"/>
+    <bean id="executorProxy" class="com.company.tasks.ExecutorProxy" scope="prototype">
+        <property name="executor" ref="taskExecutor"/>
+    </bean>
     <bean id="executorFactory" class="com.company.tasks.ExecutorFactory">
-        <lookup-method name="getNumberExecutor" bean="taskExecutor"/>
+        <lookup-method name="getNumberExecutor" bean="executorProxy"/>
     </bean>
 </beans>
